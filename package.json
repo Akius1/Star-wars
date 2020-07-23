@@ -1,0 +1,19 @@
+{
+  "name": "star-wars",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Akius1/Star-wars.git"
+  },
+  "author": "Andrew Urom",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Akius1/Star-wars/issues"
+  },
+  "homepage": "https://github.com/Akius1/Star-wars#readme"
+}
