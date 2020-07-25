@@ -1,6 +1,21 @@
 const api_url = 'https://swapi.dev/api/people/';
 const get_name = document.querySelector('.display-names');
 let user;
+const searchButton = document.querySelector("#searchButton");
+const searchInput = document.querySelector("#search");
+
+const imageUrls = [
+    "./star-wars-image/Luke_Skywalker.png",
+    "./star-wars-image/C-3PO.jpg",
+    "./star-wars-image/R2-D2.png",
+    "./star-wars-image/darth_vader.jpg",
+    "./star-wars-image/leia-organa.jpg",
+    "./star-wars-image/Owen-lars.jpg",
+    "./star-wars-image/BeruWhitesunLars.jpg",
+    "./star-wars-image/r5-d4.jpg",
+    "./star-wars-image/Biggs-dark.png",
+    "./star-wars-image/obi-wan.jpg",
+]
 
 async function fetcher(url){
     return fetch(url)
@@ -12,48 +27,67 @@ async function fetcher(url){
     })
 }
 
-const displayNames = async (users) => {
-    let html = "";
-    users.forEach(user => {
-     html+= `<div class="names" data-id=${user.id}> ${user.name}</div>`
-})
-get_name.innerHTML = html;
-}
+
 
 const addClickListener = () => {
-    document.querySelectorAll(".names").forEach(name => {
-         name.addEventListener("click", function() {
-           let user = users.searchUser(this.dataset.id);
-           let showdetails = document.querySelector(".show-details");
-           showdetails.innerHTML = displayDetails(user);
-        })
-        
+    document.querySelectorAll(".image-border").forEach(name => {
+         name.addEventListener("click", displayDetails);
     })
-    
 }
 
-const displayDetails = (detail) =>{
-    const [name, gender, height] = detail;
-    let display = `
-    <div>Name: ${name},</div>
-     <div> Gender: ${gender}, </div>
-     <div> Height: ${height}ft.</div>`;
-     console.log(display);
-    return display;
+function displayDetails(evt){
+    evt.preventDefault();
+    document.querySelectorAll(".image-border").forEach(card => card.childNodes[5].classList.remove("fadeIn"));
+    this.childNodes[5].classList.toggle("fadeIn");
 };
+
+
+
+const buildCards = (user) => {
+    return (`
+    <figure class="image-border" data-id=${user.id}>
+        <img src=${user.imageUrl} alt=${user.name}/>
+        <figcaption>${user.name}</figcaption>
+        <div class="overlay">   
+            <div>Name : ${user.name}</div>
+            <div>Gender: ${user.gender}</div>
+            <div>height: ${user.height}</div>
+        </div>
+    </figure>`)
+}
+
+const displayUsersCard = async (users, searchParameter="") => {
+    let html = "";
+    users.filter(user => {
+        if(user.name.includes(searchParameter.toLowerCase())){
+            html+= buildCards(user)
+        }
+})
+get_name.innerHTML = html;
+addClickListener();
+
+}
 
 const  start = async () => {
     const userData = await fetcher(api_url);
     const newUserData = userData.results.map((user, index) => {
         user.id = index;
+        user.imageUrl = imageUrls[index];
         return user;
     });
     users = new Users(newUserData);
-    displayNames(newUserData);
-    addClickListener();
+    displayUsersCard(newUserData);
 }
+
+function searchUser() {
+    displayUsersCard(users.users, searchInput.value.trim());
+}
+
+searchButton.addEventListener("click", searchUser);
+
 
 start();
 
-// users = new Users(data.results);
-// 
+
+
+
