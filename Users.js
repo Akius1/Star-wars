@@ -11,7 +11,8 @@ class Users{
     searchUser = (id) => {
         for(let i = 0; i < this.users.length; i++) {
             if(id == this.users[i].id){
-                return this.users[i];
+                let {name,gender,height} = this.users[i];
+                 return [name, gender, height];
             }
         }
     }
