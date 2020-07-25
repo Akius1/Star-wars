@@ -15,20 +15,17 @@ async function fetcher(url){
 const displayNames = async (users) => {
     let html = "";
     users.forEach(user => {
-     html+= `<h2 class="names" data-id=${user.id}> ${user.name}</h2> <div class="display-details"></div>`
+     html+= `<div class="names" data-id=${user.id}> ${user.name}</div>`
 })
 get_name.innerHTML = html;
 }
 
 const addClickListener = () => {
     document.querySelectorAll(".names").forEach(name => {
-        
          name.addEventListener("click", function() {
            let user = users.searchUser(this.dataset.id);
-           displayDetails(user);
-           let showDetails = document.querySelectorAll(".display-details");
-           console.log(displayDetails(user));
-           console.log(showDetails)
+           let showdetails = document.querySelector(".show-details");
+           showdetails.innerHTML = displayDetails(user);
         })
         
     })
@@ -36,12 +33,12 @@ const addClickListener = () => {
 }
 
 const displayDetails = (detail) =>{
-    console.log(detail)
     const [name, gender, height] = detail;
     let display = `
-    Name: ${name}
-    Gender: ${gender} 
-    Height: ${height}`;
+    <div>Name: ${name},</div>
+     <div> Gender: ${gender}, </div>
+     <div> Height: ${height}ft.</div>`;
+     console.log(display);
     return display;
 };
 
