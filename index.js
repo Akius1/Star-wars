@@ -59,13 +59,12 @@ const buildCards = (user) => {
 const displayUsersCard = async (users, searchParameter="") => {
     let html = "";
     users.filter(user => {
-        if(user.name.includes(searchParameter.toLowerCase())){
+        if(user.name.includes(searchParameter)){
             html+= buildCards(user)
         }
 })
 get_name.innerHTML = html;
 addClickListener();
-
 }
 
 const  start = async () => {
