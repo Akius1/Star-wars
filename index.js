@@ -1,6 +1,6 @@
 const api_url = 'https://swapi.dev/api/people/';
 const get_name = document.querySelector('.display-names');
-let user;
+
 const searchButton = document.querySelector("#searchButton");
 const searchInput = document.querySelector("#search");
 
@@ -59,7 +59,7 @@ const buildCards = (user) => {
 const displayUsersCard = async (users, searchParameter="") => {
     let html = "";
     users.filter(user => {
-        if(user.name.includes(searchParameter)){
+        if(user.name.toLowerCase().startsWith(searchParameter.toLowerCase()) || user.name.toLowerCase().includes(searchParameter.toLowerCase()) ){
             html+= buildCards(user)
         }
 })
@@ -78,12 +78,17 @@ const  start = async () => {
     displayUsersCard(newUserData);
 }
 
-function searchUser() {
+const searchUser = () => {
     displayUsersCard(users.users, searchInput.value.trim());
 }
-
+const keyPressed =(event) =>{
+    event.preventDefault();
+    if (event.key === "Enter" || event.key === 13) {
+        searchUser();
+    }
+}
 searchButton.addEventListener("click", searchUser);
-
+searchInput.addEventListener("keyup", keyPressed)
 
 start();
 
