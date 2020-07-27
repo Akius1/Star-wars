@@ -177,11 +177,21 @@ a:visited{
 }
 #searchButton{
   border-radius: 20px;
-  background-color: orange;
+  background: #478b87;
+  border: 2px solid #ccc;
   color: white;
+  outline-color: #ccc;
+  padding: 12px 20px;
+  margin: 10px 10px 60px 10px;
 }
-#search{
+input{
+  width: 20%;
+  padding: 12px 20px;
+  margin: 10px 10px 60px 10px;
+  /*border: 1px solid#878b87;*/
   border-radius: 10px;
+  box-sizing: border-box;
+  transition: ease-in-out, width .70s ease-in-out;
 }
 input:focus {
   background-color: #fff1;
