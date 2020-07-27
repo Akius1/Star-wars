@@ -78,15 +78,17 @@ const  start = async () => {
     displayUsersCard(newUserData);
 }
 
-function searchUser() {
+const searchUser = () => {
     displayUsersCard(users.users, searchInput.value.trim());
 }
-
+const keyPressed =(event) =>{
+    event.preventDefault();
+    if (event.key === "Enter" || event.key === 13) {
+        searchUser();
+    }
+}
 searchButton.addEventListener("click", searchUser);
-searchInput.addEventListener("keydown",({key}) => {
-    if (key === "Enter" || key === 13) return displayUsersCard(users.users, searchInput.value.trim());
-})
-
+searchInput.addEventListener("keyup", keyPressed)
 
 start();
 
