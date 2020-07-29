@@ -88,7 +88,7 @@ const keyPressed =(event) =>{
     }
 }
 searchButton.addEventListener("click", searchUser);
-searchInput.addEventListener("keyup", keyPressed)
+searchInput.addEventListener("keyup", keyPressed);
 
 start();
 
